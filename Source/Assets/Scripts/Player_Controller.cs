@@ -7,13 +7,13 @@ public class Player_Controller : MonoBehaviour {
 	public bool mouse_controls;
 
 	//Lives
-	public int lives;
+	public int lives = 3;
 	private GUIText life_text;
 
 	//Movement Variables
-	public float max_speed;
+	public float max_speed = 3f;
 	//Generally acceleration should be high (less sliding)
-	public float acceleration;
+	public float acceleration = 10f;
 
 	// Use this for initialization
 	void Start () {

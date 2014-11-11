@@ -6,29 +6,32 @@ public class Enemy_Generator : MonoBehaviour {
 	public GameObject player;
 
 	//How quickly the game gets harder
-	public float difficulty_step;
+	public float difficulty_step = 1;
 
 	//How many enemies spawn a second
-	public float initial_spawn_rate;
-	public float spawn_rate;
+	public float initial_spawn_rate = 3;
+	public float spawn_rate = 0;
 	//everytime this = spawn_rate, spawn an enemy
 	private float spawn_timer = 0;
 
 	//Movement
+	//Basic and Sine
+	public float initial_move_speed = 3;
 	//Sine
-	public float initial_move_speed;
-	public float initial_sine_speed;
-	public float initial_sine_frequency;
+	public float initial_sine_speed = 2;
+	public float initial_sine_frequency = 1;
 	//Pathfinding
-	public float initial_tracking_speed;
-	public float initial_life;
+	public float initial_tracking_speed = 2;
+	public float initial_life = 5;
 
 	//Enemy Variables
 	public GameObject[] enemies;
 	//initial chance based from 0 to rand_val_max
 	public float[] spawn_chance = {3, 8};
 	public float rand_val_max = 10f;
-
+	public float basic_spawn_acceleration = .1f;
+	public float sine_spawn_acceleration = .15f;
+	public float path_spawn_acceleration = .18f;
 
 	//Spawn Locations (Where enemies can spawn outside of the map)
 	private float side_bound = 9.5f;
@@ -52,10 +55,10 @@ public class Enemy_Generator : MonoBehaviour {
 	public void Spawn_Enemies(){
 		//Up the spawn chances of enemies based on difficulty_step
 		//Hardcoded to left sine and pathfinding enemies spawn more late game
-		spawn_chance[0] += .1f * difficulty_step;
-		spawn_chance[1] += .15f * difficulty_step;
+		spawn_chance[0] += basic_spawn_acceleration * difficulty_step;
+		spawn_chance[1] += sine_spawn_acceleration * difficulty_step;
 		//Max value in random range
-		rand_val_max += .18f * difficulty_step;
+		rand_val_max += path_spawn_acceleration * difficulty_step;
 
 
 		spawn_timer += Time.deltaTime * spawn_rate;
